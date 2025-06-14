@@ -8,6 +8,10 @@ import org.apache.http.entity.ContentType;
 import org.testng.annotations.Test;
 
 public class UserTest extends TestRunner {
+
+    private  String username = "Jeidy";
+    private  String password = "J1234y";
+
     @Test(testName = "Create a new user")
     public void createUserTest() {
         RestAssured
@@ -16,16 +20,16 @@ public class UserTest extends TestRunner {
                 .header("content-type", ContentType.APPLICATION_JSON.getMimeType())
                 .filter(new RequestLoggingFilter())
                 .filter(new ResponseLoggingFilter())
-                .body("{\n" +
+                .body(String.format("{\n" +
                         "  \"id\": 1,\n" +
-                        "  \"username\": \"Jeidy\",\n" +
+                        "  \"username\": \"%s\",\n" +
                         "  \"firstName\": \"jeidy\",\n" +
                         "  \"lastName\": \"olaya\",\n" +
                         "  \"email\": \"jkos@gmail.com\",\n" +
-                        "  \"password\": \"J1234y\",\n" +
+                        "  \"password\": \"%s\",\n" +
                         "  \"phone\": \"12345\",\n" +
                         "  \"userStatus\": 0\n" +
-                        "}")
+                        "}", username, password))
                 .when()
                 .post("/user")
                 .then()
@@ -42,7 +46,7 @@ public class UserTest extends TestRunner {
                 .filter(new RequestLoggingFilter())
                 .filter(new ResponseLoggingFilter())
                 .when()
-                .get(String.format("/user/login?username=%s&password=%s", "Jeidy", "J1234y"))
+                .get(String.format("/user/login?username=%s&password=%s", username, password))
                 .then()
                 .statusCode(200)
                 .log().all();
