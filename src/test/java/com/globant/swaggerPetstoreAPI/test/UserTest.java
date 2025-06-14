@@ -32,4 +32,19 @@ public class UserTest extends TestRunner {
                 .statusCode(200)
                 .log().all();
     }
+
+    @Test(testName = "Login with valid credentials")
+    public void loginTest() {
+        RestAssured
+                .given()
+                .baseUri(getApiUrl())
+                .header("content-type", ContentType.APPLICATION_JSON.getMimeType())
+                .filter(new RequestLoggingFilter())
+                .filter(new ResponseLoggingFilter())
+                .when()
+                .get(String.format("/user/login?username=%s&password=%s", "Jeidy", "J1234y"))
+                .then()
+                .statusCode(200)
+                .log().all();
+    }
 }
