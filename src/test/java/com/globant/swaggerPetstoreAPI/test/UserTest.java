@@ -60,6 +60,6 @@ public class UserTest extends TestRunner {
                 .get("/user/logout")
                 .then()
                 .statusCode(200);
-//                .log().all();
+//                .log().all();//Si usas .filter(new ResponseLoggingFilter()), no necesitas .log().all(), ya que el filtro ya registra toda la respuesta automáticamente.
     }
 }
