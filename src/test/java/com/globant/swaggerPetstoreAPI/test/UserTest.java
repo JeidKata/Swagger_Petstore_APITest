@@ -47,4 +47,19 @@ public class UserTest extends TestRunner {
                 .statusCode(200)
                 .log().all();
     }
+
+    @Test(testName = "Logout user")
+    public void logoutTest() {
+        RestAssured
+                .given()
+                .baseUri(getApiUrl())
+                .header("content-type", ContentType.APPLICATION_JSON.getMimeType())//esta línea asegura que el servidor sepa que el cuerpo de la solicitud está en formato JSON.
+                .filter(new RequestLoggingFilter())//permite ver exactamente qué datos se están enviando al servidor.
+                .filter(new ResponseLoggingFilter())//útil para depuración, ya que permite ver exactamente qué devuelve el servidor.
+                .when()
+                .get("/user/logout")
+                .then()
+                .statusCode(200);
+//                .log().all();
+    }
 }
