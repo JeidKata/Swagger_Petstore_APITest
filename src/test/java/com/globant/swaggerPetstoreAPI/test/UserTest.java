@@ -1,6 +1,7 @@
 package com.globant.swaggerPetstoreAPI.test;
 
 import com.globant.swaggerPetstoreAPI.config.TestRunner;
+import com.globant.swaggerPetstoreAPI.model.GetUserResponseDTO;
 import com.globant.swaggerPetstoreAPI.request.RequestBuilder;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
@@ -46,20 +47,14 @@ public class UserTest extends TestRunner {
         Response response = RequestBuilder.getRequest(getApiUrl(), String.format("/user/login?username=%s&password=%s", username, password), getApiKey());
 
         assertEquals(response.getStatusCode(), 200, "Expected status code 200, but got: " + response.getStatusCode());
+        GetUserResponseDTO getUserResponseDTO = response.as(GetUserResponseDTO.class);
+        System.out.println(getUserResponseDTO.toString());
     }
 
     @Test(testName = "Logout user")
     public void logoutTest() {
-        RestAssured
-                .given()
-                .baseUri(getApiUrl())
-                .header("content-type", ContentType.APPLICATION_JSON.getMimeType())//esta línea asegura que el servidor sepa que el cuerpo de la solicitud está en formato JSON.
-                .filter(new RequestLoggingFilter())//permite ver exactamente qué datos se están enviando al servidor.
-                .filter(new ResponseLoggingFilter())//útil para depuración, ya que permite ver exactamente qué devuelve el servidor.
-                .when()
-                .get("/user/logout")
-                .then()
-                .statusCode(200);
-//                .log().all();//Si usas .filter(new ResponseLoggingFilter()), no necesitas .log().all(), ya que el filtro ya registra toda la respuesta automáticamente.
+        Response response = RequestBuilder.getRequest(getApiUrl(), "/user/logout", getApiKey());
+
+        assertEquals(response.getStatusCode(), 200, "Expected status code 200, but got: " + response.getStatusCode());
     }
 }
