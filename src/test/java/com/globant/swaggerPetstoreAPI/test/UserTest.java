@@ -1,13 +1,21 @@
 package com.globant.swaggerPetstoreAPI.test;
 
 import com.globant.swaggerPetstoreAPI.config.TestRunner;
+import com.globant.swaggerPetstoreAPI.request.RequestBuilder;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
+import io.restassured.response.Response;
 import org.apache.http.entity.ContentType;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertEquals;
+
 public class UserTest extends TestRunner {
+
+    private final String username = "Jeidy";
+    private final String password = "J1234y";
+
     @Test(testName = "Create a new user")
     public void createUserTest() {
         RestAssured
@@ -35,17 +43,9 @@ public class UserTest extends TestRunner {
 
     @Test(testName = "Login with valid credentials")
     public void loginTest() {
-        RestAssured
-                .given()
-                .baseUri(getApiUrl())
-                .header("content-type", ContentType.APPLICATION_JSON.getMimeType())
-                .filter(new RequestLoggingFilter())
-                .filter(new ResponseLoggingFilter())
-                .when()
-                .get(String.format("/user/login?username=%s&password=%s", "Jeidy", "J1234y"))
-                .then()
-                .statusCode(200)
-                .log().all();
+        Response response = RequestBuilder.getRequest(getApiUrl(), String.format("/user/login?username=%s&password=%s", username, password), getApiKey());
+
+        assertEquals(response.getStatusCode(), 200, "Expected status code 200, but got: " + response.getStatusCode());
     }
 
     @Test(testName = "Logout user")
