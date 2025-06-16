@@ -11,14 +11,14 @@ import static org.testng.Assert.assertEquals;
 
 public class PetsTest extends TestRunner {
 
-    private List<Integer> petId;
+    private List<Long> petId;
     private long specificPetId;
 
     @Test(testName = "Get all pets available")
     public void getAvailablePetsTest() {
         Response response = RequestBuilder.getRequest(getApiUrl(), "/pet/findByStatus?status=available", getApiKey());
 
-        List<Integer> petIds = response.jsonPath().getList("id");
+        List<Long> petIds = response.jsonPath().getList("id", Long.class);
         petId = petIds;
     }
 
