@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 public class PetDTO {
 
     private Long id;
-    private String name;
     private String status;
 
 }

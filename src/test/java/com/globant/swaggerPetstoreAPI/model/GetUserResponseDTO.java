@@ -18,5 +18,5 @@ public class GetUserResponseDTO {
     private UserDTO userData;
 
     @JsonProperty(value = "pets")
-    private PetDTO[] petsData;
+    private PetDTO petsData;
 }
