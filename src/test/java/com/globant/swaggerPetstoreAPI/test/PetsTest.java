@@ -7,6 +7,8 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
+import static org.testng.Assert.assertEquals;
+
 public class PetsTest extends TestRunner {
 
     private List<Integer> petId;
@@ -18,5 +20,16 @@ public class PetsTest extends TestRunner {
 
         List<Integer> petIds = response.jsonPath().getList("id");
         petId = petIds;
+    }
+
+    @Test (testName = "Get a specific pet by ID", description = "Show details of a specific pet")
+    public void getSpecificPetTest() {
+        if (petId != null && !petId.isEmpty()) {
+            specificPetId = petId.getFirst();
+            Response response = RequestBuilder.getRequest(getApiUrl(), String.format("/pet/%d", specificPetId), getApiKey());
+            assertEquals(response.getStatusCode(), 200, "Expected status code 200, but got: " + response.getStatusCode());
+        } else {
+            System.out.println("No pets available to test.");
+        }
     }
 }
