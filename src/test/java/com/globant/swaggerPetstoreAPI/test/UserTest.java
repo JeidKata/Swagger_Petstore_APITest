@@ -13,13 +13,8 @@ import static org.testng.Assert.assertEquals;
 
 public class UserTest extends TestRunner {
 
-<<<<<<< HEAD
     private  String username = "Jeidy";
     private  String password = "J1234y";
-=======
-    private final String username = "Jeidy";
-    private final String password = "J1234y";
->>>>>>> refactoritation
 
     @Test(testName = "Create a new user")
     public void createUserTest() {
