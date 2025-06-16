@@ -38,6 +38,7 @@
             <version>3.0</version>
             <scope>test</scope>
         </dependency>
+<!--        esta dependencia me permite usa la anotación JsonProperties para poder conservar el estandar de nombre de variables en java-->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
