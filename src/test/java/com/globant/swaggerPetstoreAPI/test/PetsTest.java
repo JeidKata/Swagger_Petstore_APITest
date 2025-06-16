@@ -30,18 +30,10 @@ public class PetsTest extends TestRunner {
            if (petId != null && !petId.isEmpty()) {
             specificPetId = petId.getFirst();
             Response respuesta = RequestBuilder.getRequest(getApiUrl(), String.format("/pet/%d", specificPetId), getApiKey());
+
             JsonPath responseJson = respuesta.jsonPath();
-            Long idPet = responseJson.getLong("id");
-            String statusPet = responseJson.getString("status");
-            System.out.println(respuesta.getBody().asString());
-            GetPetsRespondeDTO expectedPet = GetPetsRespondeDTO.builder()
-                    .petsData(PetDTO.builder()
-                            .id(specificPetId)
-                            .status("available")
-                            .build())
-                    .build();
-            PetDTO actualPet = respuesta.as(PetsDTO.class);
-            assertEquals(actualPet, expectedPet, "Expected pet details do not match actual response.");
+            assertEquals(responseJson.getLong("id"), specificPetId, "Expected pet ID does not match actual response.");
+            assertEquals(responseJson.getString("status"), "available", "Expected pet status to be 'available', but got: " + responseJson.getString("status"));
             assertEquals(respuesta.getStatusCode(), 200, "Expected status code 200, but got: " + respuesta.getStatusCode());
         } else {
             System.out.println("No pets available to test.");
