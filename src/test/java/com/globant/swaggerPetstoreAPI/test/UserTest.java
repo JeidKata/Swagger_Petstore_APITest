@@ -1,7 +1,7 @@
 package com.globant.swaggerPetstoreAPI.test;
 
 import com.globant.swaggerPetstoreAPI.config.TestRunner;
-import com.globant.swaggerPetstoreAPI.model.GetUserResponseDTO;
+import com.globant.swaggerPetstoreAPI.model.users.GetUserResponseDTO;
 import com.globant.swaggerPetstoreAPI.request.RequestBuilder;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;

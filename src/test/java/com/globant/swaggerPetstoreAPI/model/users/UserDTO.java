@@ -1,4 +1,4 @@
-package com.globant.swaggerPetstoreAPI.model;
+package com.globant.swaggerPetstoreAPI.model.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

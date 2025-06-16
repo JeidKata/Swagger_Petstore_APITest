@@ -1,4 +1,4 @@
-package com.globant.swaggerPetstoreAPI.model;
+package com.globant.swaggerPetstoreAPI.model.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,6 +17,4 @@ public class GetUserResponseDTO {
     @JsonProperty(value = "data")
     private UserDTO userData;
 
-    @JsonProperty(value = "pets")
-    private PetDTO petsData;
 }

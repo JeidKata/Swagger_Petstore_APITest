@@ -1,10 +1,9 @@
 package com.globant.swaggerPetstoreAPI.test;
 
+import com.globant.swaggerPetstoreAPI.model.pets.GetPetsRespondeDTO;
 import io.restassured.path.json.JsonPath;
-import lombok.Builder;
 import com.globant.swaggerPetstoreAPI.config.TestRunner;
-import com.globant.swaggerPetstoreAPI.model.GetUserResponseDTO;
-import com.globant.swaggerPetstoreAPI.model.PetDTO;
+import com.globant.swaggerPetstoreAPI.model.pets.PetDTO;
 import com.globant.swaggerPetstoreAPI.request.RequestBuilder;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
@@ -28,23 +27,22 @@ public class PetsTest extends TestRunner {
 
     @Test (testName = "Get a specific pet by ID", description = "Show details of a specific pet")
     public void getSpecificPetTest() {
-
-        if (petId != null && !petId.isEmpty()) {
+           if (petId != null && !petId.isEmpty()) {
             specificPetId = petId.getFirst();
-            Response response = RequestBuilder.getRequest(getApiUrl(), String.format("/pet/%d", specificPetId), getApiKey());
-            JsonPath responseJson = response.jsonPath();
-            System.out.println(responseJson.getString("id"));
-            System.out.println(responseJson.getString("status"));
-
-            GetUserResponseDTO expectedPet = GetUserResponseDTO.builder()
+            Response respuesta = RequestBuilder.getRequest(getApiUrl(), String.format("/pet/%d", specificPetId), getApiKey());
+            JsonPath responseJson = respuesta.jsonPath();
+            Long idPet = responseJson.getLong("id");
+            String statusPet = responseJson.getString("status");
+            System.out.println(respuesta.getBody().asString());
+            GetPetsRespondeDTO expectedPet = GetPetsRespondeDTO.builder()
                     .petsData(PetDTO.builder()
                             .id(specificPetId)
                             .status("available")
                             .build())
                     .build();
-            GetUserResponseDTO actualPet = response.as(GetUserResponseDTO.class);
+            PetDTO actualPet = respuesta.as(PetsDTO.class);
             assertEquals(actualPet, expectedPet, "Expected pet details do not match actual response.");
-            assertEquals(response.getStatusCode(), 200, "Expected status code 200, but got: " + response.getStatusCode());
+            assertEquals(respuesta.getStatusCode(), 200, "Expected status code 200, but got: " + respuesta.getStatusCode());
         } else {
             System.out.println("No pets available to test.");
         }
