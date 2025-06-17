@@ -23,4 +23,17 @@ public class RequestBuilder {
 
         return requestSpecification.get(path);
     }
+
+    public static Response postRequest(String apiUrl, String path, String apiKey, Object body) {
+        RequestSpecification requestSpecification = RestAssured.given()
+                .baseUri(apiUrl)
+                .header(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType())
+                .header(APIKEY, apiKey)
+                .filter(new RequestLoggingFilter())
+                .filter(new ResponseLoggingFilter())
+                .body(body);
+
+
+        return requestSpecification.post(path);
+    }
 }
