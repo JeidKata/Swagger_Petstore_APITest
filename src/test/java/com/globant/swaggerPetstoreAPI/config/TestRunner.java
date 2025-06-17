@@ -17,6 +17,10 @@ public class TestRunner {
     @Getter
     private static String apiKey;
 
+    /**
+     * This method is executed before any tests in the suite.
+     * It loads the properties from the config file and initializes the API URL and API key.
+     */
     @BeforeSuite
     public void setup() {
         loadProperties();
@@ -24,6 +28,10 @@ public class TestRunner {
         apiKey = PROPERTIES.getProperty("apiKey");
     }
 
+    /**
+     * This method loads the properties from the config file.
+     * It reads the file and populates the PROPERTIES object.
+     */
     private void loadProperties() {
         try {
             FileInputStream fileInputStream = new FileInputStream(PROPERTIES_FILE);
