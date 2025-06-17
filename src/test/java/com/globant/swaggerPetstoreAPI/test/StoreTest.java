@@ -8,7 +8,6 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import static org.testng.Assert.assertEquals;
 
@@ -37,8 +36,6 @@ public class StoreTest extends TestRunner {
                 getApiKey(),
                 order
         );
-        GetOrderResponseDTO createOrderResponse = response.as(GetOrderResponseDTO.class);
-
-        assertEquals(response.getStatusCode(), 200, "The response status code is not 200");
+        assertEquals(response.getStatusCode(), 200, "Expected status code 200, but got: " + response.getStatusCode());
     }
 }
