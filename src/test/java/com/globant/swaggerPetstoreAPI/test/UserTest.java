@@ -14,6 +14,10 @@ public class UserTest extends TestRunner {
     private  String username = "Jeidy";
     private  String password = "J1234y";
 
+    /**
+     * This test creates a new user in the pet store.
+     * It uses the UserDTO model to create the user object.
+     */
     @Test(testName = "Create a new user")
     public void createUserTest() {
         UserDTO user = UserDTO.builder()
@@ -36,6 +40,10 @@ public class UserTest extends TestRunner {
         assertEquals(response.getStatusCode(), 200, "Expected status code 200, but got: " + response.getStatusCode());
     }
 
+    /**
+     * This test retrieves a user by their username.
+     * It checks if the user exists and verifies the response.
+     */
     @Test(testName = "Login with valid credentials")
     public void loginTest() {
         Response response = RequestBuilder.getRequest(getApiUrl(), String.format("/user/login?username=%s&password=%s", username, password), getApiKey());
@@ -45,6 +53,10 @@ public class UserTest extends TestRunner {
         System.out.println(getUserResponseDTO.toString());
     }
 
+    /**
+     * This test retrieves a user by their username.
+     * It checks if the user exists and verifies the response.
+     */
     @Test(testName = "Logout user")
     public void logoutTest() {
         Response response = RequestBuilder.getRequest(getApiUrl(), "/user/logout", getApiKey());

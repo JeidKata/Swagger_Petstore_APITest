@@ -15,6 +15,10 @@ public class PetsTest extends TestRunner {
     private List<Long> petId;
     private long specificPetId;
 
+    /**
+     * This test retrieves all pets available in the pet store.
+     * It uses the API endpoint to find pets by status "available".
+     */
     @Test(testName = "Get all pets available")
     public void getAvailablePetsTest() {
         Response response = RequestBuilder.getRequest(getApiUrl(), "/pet/findByStatus?status=available", getApiKey());
@@ -23,6 +27,10 @@ public class PetsTest extends TestRunner {
         petId = petIds;
     }
 
+    /**
+     * This test retrieves a specific pet by its ID.
+     * It checks if the pet exists and verifies its status.
+     */
     @Test (testName = "Get a specific pet by ID", description = "Show details of a specific pet")
     public void getSpecificPetTest() {
            if (petId != null && !petId.isEmpty()) {
