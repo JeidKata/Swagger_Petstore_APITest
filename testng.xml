@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="PetStore API Tests" verbose="1" >
+    <test name="API Functional Tests" >
+        <classes>
+            <class name="com.globant.swaggerPetstoreAPI.test.PetStoreApiTests" />
+        </classes>
+    </test>
+</suite>
